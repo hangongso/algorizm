@@ -1,0 +1,78 @@
+#include <stdio.h>
+
+#define ROWS 10
+#define COLS 10
+
+int maze[ROWS][COLS] = {
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 1, 1, 1, 1, 1, 0, 1, 1, 0},
+    {0, 1, 0, 0, 0, 1, 0, 0, 1, 0},
+    {0, 1, 0, 1, 0, 1, 1, 1, 1, 0},
+    {0, 1, 0, 1, 0, 0, 0, 0, 1, 0},
+    {0, 1, 1, 1, 1, 1, 1, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+};
+
+int player_row = 1;
+int player_col = 1;
+
+void print_maze() {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (i == player_row && j == player_col) {
+                printf("P ");
+            }
+            else if (maze[i][j] == 0) {
+                printf("# ");
+            }
+            else {
+                printf(". ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    char input;
+
+    while (1) {
+        print_maze();
+        input = getchar();
+
+        if (input == 'w') {
+            if (maze[player_row - 1][player_col] != 0) {
+                player_row--;
+            }
+        }
+        else if (input == 'a') {
+            if (maze[player_row][player_col - 1] != 0) {
+                player_col--;
+            }
+        }
+        else if (input == 's') {
+            if (maze[player_row + 1][player_col] != 0) {
+                player_row++;
+            }
+        }
+        else if (input == 'd') {
+            if (maze[player_row][player_col + 1] != 0) {
+                player_col++;
+            }
+        }
+
+        if (player_row == ROWS - 2 && player_col == COLS - 2) {
+            printf("Congratulations, you won!\n");
+            break;
+        }
+        else if (maze[player_row][player_col] == 0) {
+            printf("Game over, you hit a wall!\n");
+            break;
+        }
+    }
+
+    return 0;
+}

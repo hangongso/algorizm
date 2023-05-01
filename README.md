@@ -1,0 +1,2 @@
+# algorizm
+algorizm class
